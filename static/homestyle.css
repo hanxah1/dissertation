@@ -1,0 +1,16 @@
+body{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: bisque;
+}
+
+.headerborder{
+    background-color: black;
+    margin-top: 1%;
+}
+
+.header{
+    font-size: 60px;
+    color: azure;
+    word-spacing: 1px;
+}
