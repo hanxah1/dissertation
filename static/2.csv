@@ -1,0 +1,13 @@
+day,name,time,duration,type
+monday,cardio circuits,9:10,60,cycling
+,cardio circuits,18:30,60,cycling
+tuesday,iron mums,9:15,45mins,weight
+,spin,18:00,45,
+wednesday,weights circuits,9:00,60,
+,spin,18:30,45,
+thursday,spin,9:30,45,
+friday,iron mums,9:15,45,
+saturday,weights circuits,8:00,60,
+,spin,10:00,45,
+sunday,weights circuits,17:00,60,
+,spin,18:00,45,

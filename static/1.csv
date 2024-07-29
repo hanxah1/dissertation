@@ -1,0 +1,91 @@
+day,name,time,duration,type
+Monday,Virtual RPM,6:45,45mins,cardiovascular;spin;cycling
+,Strength and conditioning,6:45,45mins,muscle;resistance
+,Virtual body pump,8:00,60mins,muscle;resistance
+,Aqua,9:15,45mins,cardiovascular
+,Bodypump,9:30,60mins,muscle;resistance
+,Bodyattack,9:30,45mins,cardiovascular
+,Line dancing,10:30,45mins,cardiovascular
+,pilates studio 1,11:00,60mins,mind and body
+,pilates studio 2,11:30,60mins,mind and body
+,Virtual body pump,12:30,60mins,muscle;resistance
+,RPM,17:30,45mins,cardiovascular
+,Strength and conditioning,17:30,45mins,muscle;resistance
+,aqua,17:45,45mins,cardiovascular
+,bodypump45,18:30,60mins,mind and body
+,turn'd up fitness,18:30,60mins,
+,bodybalance,19:30,60mins,muscle;resistance;yoga;balance
+Tuesday,grit strength,6:45,30mins,muscle
+,rpm,9:15,45mins,cardiovascular
+,aqua zumba,9:15,45mins,cardiovascular
+,bodybalance,10:15,60mins,muscle
+,dancercise,10:30,45mins,cardiovascular
+,ballacanetics studio 2,11:30,45mins,mind and body
+,abs and stretch,12:00,45mins,muscle
+,strength and conditioning,12:30,45mins,muscle
+,low impact circuits,13:00,45mins,cardiovascular
+,virtual body pump,14:00,60mins,muscle
+,virtual rpm,16:30,45mins,cardiovascular
+,strength and conditioning,17:45,45mins,muscle
+,step 'n' tone,18:00,45mins,cardiovascular
+,lbt,18:45,45mins,cardiovascular
+,bodypump,19:00,60mins,muscle
+,pilates studio 2,19:45,45mins,mind and body
+Wednesday,group cycling,6:45,45mins,
+,circuits,6:45,60,
+,virtual body pump,8:00,60,
+,low impact aerobics,9:30,45,
+,b: strong,9:30,30,
+,aqua,10:00,45,
+,virtual body combat,10:15,60,
+,pilates studio 1,11:00,60,
+,yoga studio 1,12:15,75,
+,pilates studio 1,14:00,60,
+,virtual sprint,16:45,30,
+,bodypump45,17:30,45,
+,circuits,17:30,45,
+,bodycombat - studio 2,18:15,60,
+,aqua,18:30,45,
+,rpm,18:30,45,
+,yoga studio 1,19:30,75,
+Thursday,pulse,6:45,45,
+,lbt,9:15,45,
+,strength and conditioning,9:15,45,
+,ballacanetics studio 1,10:30,45,
+,aqua,10:30,45,
+,80s dance class,11:45,45,
+,pilates studio 1,12:00,60,
+,virtual rpm,16:30,45,
+,lbt,17:30,60,
+,bodyattack,17:45,45,
+,boxercise,18:30,60,
+,strength and conditioning,18:45,45,
+,yoga studio 1,19:45,75,
+,zumba studio 2,19:45,45,
+Friday,group cycling,6:45,45,
+,strength and conditioning,6:45,45,
+,virtual body pump,8:00,60,
+,zumba studio 1,9:30,45,
+,aqua,9:45,45,
+,dancercise,10:30,45,
+,ballacanetics studio 1,11:30,45,
+,bodypump,12:30,60,
+,virtual yoga,13:45,60,
+,yoga studio 1,13:45,60,
+,virtual rpm,16:00,45,
+,abs blast,18:00,30,
+,virtual sprint,18:30,30,
+Saturday,rpm,8:15,45,
+,bodypump45,9:15,45,
+,virtual body combat,10:15,45,
+,aqua,10:15,45,
+,virtual grit,11:45,30,
+,virtual body balance,17:00,60,
+Sunday,bodypump,8:30,60,
+,aqua,9:00,45,
+,rpm,9:45,45,
+,aerobics studio 2,10:15,45,
+,strength and conditioning,12:00,45,
+,virtual body attack,14:00,60,
+,step 'n' tone,17:15,45,
+,beginners pilates,18:15,60,
