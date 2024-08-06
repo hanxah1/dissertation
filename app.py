@@ -23,7 +23,7 @@ def get_db_connection():
 def get_locations():
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM locations')  # Adjust the table name and columns as per your database
+    cursor.execute('SELECT * FROM locations') 
     rows = cursor.fetchall()
     conn.close()
 
@@ -32,8 +32,15 @@ def get_locations():
     for row in rows:
         locations.append({
             'name': row[2],
+            'lat': row[7],
             'long': row[8],
-            'lat': row[9],
+            'phone': row[4],
+            'email': row[1],
+            'postcode': row[0],
+            'times': row[3],
+            'classes': row[9],
+            'website': row[6],
+            'keywords':row[5]
         })
 
     return render_template('tool.html', results=jsonify(locations))
@@ -53,8 +60,15 @@ def get_markers():
     for row in rows:
         locations.append({
             'name': row[2],
+            'lat': row[7],
             'long': row[8],
-            'lat': row[9],
+            'phone': row[4],
+            'email': row[1],
+            'postcode': row[0],
+            'times': row[3],
+            'classes': row[9],
+            'website': row[6],
+            'keywords':row[5]
         })
 
     return jsonify(locations)
