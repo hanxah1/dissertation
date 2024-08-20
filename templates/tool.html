@@ -6,6 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
+        body {
+            font-family: 'Helvetica', sans-serif;
+        }
+        .contentcontainer {
+            background-color: lightblue;
+
+        }
+        .quizlink {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 20vh;
+            margin: 2%;
+            background-color: lightblue; 
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .button-container {
+            margin-top: 10px; 
+            text-align: center; 
+        }
+        .button-link {
+            text-decoration: none;
+        }
+        .button {
+            padding: 10px 20px; 
+            font-size: 16px; 
+            background-color: #007BFF; 
+            color: white; /
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            display: inline-block; 
+            vertical-align: middle; 
+        }
+
+        .button:hover {
+            background-color: #0056b3; 
+        }
+
         #map {
             width: 60%; 
             height: 400px; 
@@ -19,7 +60,8 @@
             align-items: center;
             height: 10vh;
             margin: 2%;
-            background-color: #f5f5f5; 
+            background-color: lightblue; 
+            cursor: pointer;
         }
         .filterintro {
           text-align: center;
@@ -28,10 +70,8 @@
           align-items: center;
           height: 10vh;
           margin: 2%;
-          background-color: #f5f5f5;
-          font-family: Arial, Helvetica, sans-serif;
-
-          
+          background-color: lightblue;
+        
         }
 
         .filter p {
@@ -50,6 +90,7 @@
             appearance: none;
             background: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>') no-repeat right 10px center;
             background-color: white;
+            cursor: pointer;
         }
 
         select:focus {
@@ -63,80 +104,103 @@
     </style>
 </head>
 <body>
-  <div class="filterintro">
-    <p>Explore the different activities available using the dropdown below</p>
-  </div>
-  <div class="filter">
-    <select id="keywordFilter">
-        <option value="all">All</option>
-    </select>
-  </div>
-    <div id="map"></div>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        var map = L.map('map').setView([51.5016, -3.1791], 11.3);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+    <div class="content-container">
 
-        fetch('/markers')
-            .then(response => response.json())
-            .then(results => {
-                const keywordSet = new Set();
-                const markers = [];
+        <div class="filterintro">
+            <h5>Explore the different activities available using the dropdown below</h5>
+        </div>  
 
-                results.forEach(row => {
-                    const name = row.name;  
-                    const lat = row.lat;
-                    const lon = row.long;
-                    const phone = row.phone;
-                    const email = row.email;
-                    const postcode = row.postcode;
-                    const times = row.times;
-                    const classes = row.classes;
-                    const website = row.website;
-                    const keywords = row.keywords;
+        <div class="quizlink">
+        <div class="button-container">
+            <h5>Unsure of which activity to try? Click below</h5>
+            <p><a href="quiz" class="button-link">
+                <button class="button">
+                    Which activity should I try?
+                </button>
+            </a></p>
+        </div>
+        
+        
+        </div>
 
-                    if (keywords) {
-                        keywords.split(';').forEach(keyword => keywordSet.add(keyword.trim()));
-                    }
+        <div class="filter">
+            <select id="keywordFilter">
+                <option value="all">All</option>
+            </select>
+        </div>      
+        <div id="map"></div>
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script>
+            var map = L.map('map').setView([51.5016, -3.1791], 11.3);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
 
-                    if (lon && lat) {
-                        const marker = L.marker([lat, lon]);
-                        let popupContent = `<b>${name || ''}</b>`;
-                        if (phone) popupContent += `<br>${phone}`;
-                        if (times) popupContent += `<br>${times}`;
-                        if (email) popupContent += `<br>${email}`;
-                        if (postcode) popupContent += `<br>${postcode}`;
-                        if (classes) popupContent += `<br><a href="${classes}" target="_blank">Class Information</a>`;
-                        if (website) popupContent += `<br><a href="${website}" target="_blank">Website</a>`;
-                        marker.bindPopup(popupContent);
-                        marker.keywords = keywords ? keywords.split(';').map(k => k.trim()) : [];
-                        markers.push(marker);
-                        marker.addTo(map);
-                    }
-                });
+            fetch('/markers')
+                .then(response => response.json())
+                .then(results => {
+                    const keywordSet = new Set();
+                    const markers = [];
 
-                const keywordFilter = document.getElementById('keywordFilter');
-                keywordSet.forEach(keyword => {
-                    const option = document.createElement('option');
-                    option.value = keyword;
-                    option.textContent = keyword;
-                    keywordFilter.appendChild(option);
-                });
+                    results.forEach(row => {
+                        const name = row.name;  
+                        const lat = row.lat;
+                        const lon = row.long;
+                        const phone = row.phone;
+                        const email = row.email;
+                        const postcode = row.postcode;
+                        const times = row.times;
+                        const classes = row.classes;
+                        const website = row.website;
+                        const keywords = row.keywords;
+                        const prices = row.prices;
 
-                keywordFilter.addEventListener('change', function(e) {
-                    const selectedKeyword = e.target.value;
-                    markers.forEach(marker => {
-                        if (selectedKeyword === 'all' || marker.keywords.includes(selectedKeyword)) {
+                        if (keywords) {
+                            keywords.split(';').forEach(keyword => keywordSet.add(keyword.trim()));
+                        }
+
+                        if (lon && lat) {
+                            const marker = L.marker([lat, lon]);
+                            let popupContent = `<b>${name || ''}</b>`;
+                            if (phone) popupContent += `<br>Phone number: ${phone}`;
+                            if (times) popupContent += `<br>Opening times: ${times}`;
+                            if (email) popupContent += `<br>Email: ${email}`;
+                            if (prices) popupContent += `<br>Prices: ${prices}`;
+                            if (postcode) {
+                                const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(postcode)}`;
+                                popupContent += `<br>Postcode: ${postcode} <br><a href="${mapsLink}" target="_blank">View on Google Maps</a>`;
+                            }
+                            if (classes) popupContent += `<br><a href="${classes}" target="_blank">Class Information</a>`;
+                            if (website) popupContent += `<br><a href="${website}" target="_blank">Website</a>`;
+                            marker.bindPopup(popupContent);
+                            marker.keywords = keywords ? keywords.split(';').map(k => k.trim()) : [];
+                            markers.push(marker);
                             marker.addTo(map);
-                        } else {
-                            map.removeLayer(marker);
                         }
                     });
+
+                    const keywordFilter = document.getElementById('keywordFilter');
+                    keywordSet.forEach(keyword => {
+                        const option = document.createElement('option');
+                        option.value = keyword;
+                        option.textContent = keyword;
+                        keywordFilter.appendChild(option);
+                    });
+ 
+                    keywordFilter.addEventListener('change', function(e) {
+                        const selectedKeyword = e.target.value;
+                        markers.forEach(marker => {
+                            if (selectedKeyword === 'all' || marker.keywords.includes(selectedKeyword)) {
+                                marker.addTo(map);
+                            } else {
+                                map.removeLayer(marker);
+            
+
+                            }
+                        });
+                    });
                 });
-            });
-    </script>
+        </script>
 </body>
 </html>
 

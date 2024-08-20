@@ -1,0 +1,724 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Quiz</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.quiz-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #2f27b9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2f27b9;
+}
+.button {
+    cursor: pointer;
+}
+.hidden {
+    display: none;
+}
+
+#result {
+    text-align: center;
+}
+
+.content-container {
+  position: relative;
+  margin-top: -10px; 
+  height: 300px;
+  z-index: 2; 
+}
+
+.left-box {
+  position: absolute;
+  top: 0;
+  left: 15%; 
+  width: 32%;
+  padding: 50px;
+  background-color: lightblue;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  z-index: 2;
+}
+
+.right-box {
+  position: absolute;
+  top: 100px; 
+  left: 52.5%; 
+  width: 32%;
+  padding: 50px;
+  background-color: rgb(65, 65, 255);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1; 
+  text-align: center;
+}
+
+
+.content-container + .content-container {
+  margin-top: 150px; 
+}
+
+.right-box + .left-box {
+  top: 300px;
+  left: 10%;
+}
+
+</style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Find Your Perfect Activity</h1>
+        <form id="quizForm">
+            <div class="question">
+                <h3>What type of environment do you prefer?</h3>
+                <label>
+                    <input type="radio" name="q1" value="water" required>
+                    Water-based activities
+                </label><br>
+                <label>
+                    <input type="radio" name="q1" value="indoors">
+                    Indoors 
+                </label><br>
+                <label>
+                    <input type="radio" name="q1" value="outdoors">
+                    Outdoors
+                </label>
+            </div>
+
+            <div class="question">
+                <h3>What is your budget?</h3>
+                <label>
+                    <input type="radio" name="q2" value="cheaper" required>
+                    Cheaper activities
+                </label><br>
+                <label>
+                    <input type="radio" name="q2" value="expensive">
+                    I'm open to more expensive activities
+                </label>
+            </div>
+
+
+            <div class="question">
+                <h3>Do you prefer group or individual activities?</h3>
+                <label>
+                    <input type="radio" name="q3" value="group" required>
+                    Group
+                </label><br>
+                <label>
+                    <input type="radio" name="q3" value="individual">
+                    Individual
+                </label>
+            </div>
+
+
+            <button type="submit">Find My Activity</button>
+        </form>
+
+        <div id="result" class="hidden">
+            <h2>Your Perfect Activity is:</h2>
+            <p id="activity"></p>
+        </div>
+    </div>
+    <script>
+
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+        
+            const answers = {
+                environment: document.querySelector('input[name="q1"]:checked').value,
+                price: document.querySelector('input[name="q2"]:checked').value,
+                group: document.querySelector('input[name="q3"]:checked').value
+            };
+        
+            let activities = [];
+        
+            if (answers.price === 'cheaper') {
+                if (answers.group === 'group') {
+                    activities = ['Running', 'Walking', 'Football', 'Netball', 'Hockey'];
+                } else {
+                    activities = ['Swimming', 'Rowing', 'Yoga', 'Badminton', 'Tennis', 'Climbing', 'Bouldering', 'Snooker', 'Table Tennis'];
+                }
+            } else {
+                if (answers.group === 'group') {
+                    activities = ['Rugby', 'Sailing', 'Windsurfing', 'Powerboating', 'Combat Sports', 'Fitness Classes'];
+                } else {
+                    activities = ['Gym', 'Personal Training', 'Weightlifting', 'Functional Fitness', 'Wrestling', 'Boxing', 'Triathlon', 'Bowls'];
+                }
+            }
+        
+            if (answers.environment === 'water') {
+                activities = activities.filter(activity => ['Swimming', 'Rowing', 'Sailing', 'Powerboating', 'Windsurfing'].includes(activity));
+            } else if (answers.environment === 'indoors') {
+                activities = activities.filter(activity => ['Gym', 'Yoga', 'Badminton', 'Tennis', 'Snooker', 'Table Tennis', 'Fitness Classes', 'Wrestling', 'Boxing', 'Weightlifting', 'Functional Fitness', 'Climbing', 'Bouldering'].includes(activity));
+            } else if (answers.environment === 'outdoors') {
+                activities = activities.filter(activity => ['Running', 'Walking', 'Football', 'Netball', 'Hockey', 'Rugby', 'Tennis', 'Climbing', 'Bouldering', 'Bowls', 'Triathlon', 'Rowing'].includes(activity));
+            }
+            let activityRecommendation = activities.length > 0 ? activities.join(', ') : 'No activities match your preferences.';
+        
+            document.getElementById('activity').textContent = activityRecommendation;
+            document.getElementById('result').classList.remove('hidden');
+        });
+        
+        </script>
+</body>
+<body>
+    <div>
+          <div class="content-container">
+            <div class="left-box">
+                <h5>Swimming</h5>
+                <a><br>Cardiovascular health</a>
+                <a><br>Low impact exercise</a>
+                <a><br>Muscular endurance</a>
+            <div class="right-box">
+                <a img="static/photos/swimpic"></a>
+            </div>
+          </div>
+        
+          <div class="content-container">
+            <div class="left-box">
+                As previously mentioned, inactivity can lead to death but it can also lead to a range of other conditions such as Alzeimer’s disease , Parkinson’s disease, Coeliac disease, Cardiovascular disease, anxiety and depression. It can also lead to a decrease in social health. For example, according to the health survey for England in 2021, 19% of adults who met the recommendations for physical activity felt lonely some of the time, often or always compared to 28% who did some or low activity and 29% who were inactive.
+            </div>
+            <div class="right-box">
+                All of this evidence highlights the need for physical activity not just for physical health but also mental, social and emotional health. If people want to live longer and have a better quality of life, movement is the key. 
+            </div>
+          </div>
+    </div>
+</body>
+</html>
+ -->
+
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Activity Quiz</title>
+     <style>
+         body {
+             font-family: Arial, sans-serif;
+             background-color: #f4f4f4;
+             margin: 0;
+             padding: 20px;
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             min-height: 100vh;
+         }
+ 
+         .quiz-container {
+             background-color: #fff;
+             padding: 20px;
+             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+             width: 100%;
+             max-width: 500px; /* Increased max-width to avoid cutting off */
+             margin-bottom: 40px; /* Space between quiz and content below */
+         }
+ 
+         h1 {
+             text-align: center;
+         }
+ 
+         .question {
+             margin-bottom: 20px;
+         }
+ 
+         button {
+             display: block;
+             width: 100%;
+             padding: 10px;
+             background-color: #2f27b9;
+             color: white;
+             border: none;
+             cursor: pointer;
+         }
+ 
+         button:hover {
+             background-color: #2725b9;
+         }
+ 
+         .hidden {
+             display: none;
+         }
+ 
+         #result {
+             text-align: center;
+         }
+ 
+         .content-container {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             width: 100%;
+             max-width: 800px;
+             text-align: center;
+         }
+ 
+         .box {
+             background-color: lightblue;
+             color: #333;
+             width: 90%; /* Width of the boxes */
+             padding: 20px;
+             margin: 10px;
+             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+         }
+  
+         img {
+             width: 50%;
+         }
+         
+     </style>
+ </head>
+ <body>
+     <div class="quiz-container">
+         <h1>Find Your Perfect Activity</h1>
+         <form id="quizForm">
+             <div class="question">
+                 <h3>What type of environment do you prefer?</h3>
+                 <label>
+                     <input type="radio" name="q1" value="water" required>
+                     Water-based activities
+                 </label><br>
+                 <label>
+                     <input type="radio" name="q1" value="indoors">
+                     Indoors 
+                 </label><br>
+                 <label>
+                     <input type="radio" name="q1" value="outdoors">
+                     Outdoors
+                 </label>
+             </div>
+             <div class="question">
+                 <h3>What is your budget?</h3>
+                 <label>
+                     <input type="radio" name="q2" value="cheaper" required>
+                     Cheaper activities
+                 </label><br>
+                 <label>
+                     <input type="radio" name="q2" value="expensive">
+                     I'm open to more expensive activities
+                 </label>
+             </div>
+             <div class="question">
+                 <h3>Do you prefer group or individual activities?</h3>
+                 <label>
+                     <input type="radio" name="q3" value="group" required>
+                     Group
+                 </label><br>
+                 <label>
+                     <input type="radio" name="q3" value="individual">
+                     Individual
+                 </label>
+             </div>
+             <button type="submit">Find My Activity</button>
+         </form>
+ 
+         <div id="result" class="hidden">
+             <h2>Your Perfect Activity is:</h2>
+             <p id="activity"></p>
+         </div>
+     </div>
+     <div>
+        <h3>Explore each activity below</h3>
+     </div>
+ 
+     <div class="content-container">
+         <div class="box">
+             <h5>Badminton</h5>
+             <p>Played with others</p>
+             <p>Can be high intensity</p>
+             <img src="static/photos/badminton.jpg" alt="Badminton">
+             <p style="font-size: 12px; color: #555; margin-top: 5px;">
+                Photo by <a href="https://www.pexels.com/photo/people-playing-badminton-2202685/" target="_blank" style="color: #555; text-decoration: none;">Vlad Vasnetsov</a>: https://www.pexels.com/photo/people-playing-badminton-2202685/ </p>
+         </div>
+     </div>
+
+     <div class="content-container">
+         <div class="box">
+            <h5>Bouldering</h5>
+            <p>Good for strength</p>
+            <p>Can be done in groups or individually</p>
+            <img src="static/photos/bouldering.jpg" alt="Bouldering">
+            <p style="font-size: 12px; color: #555; margin-top: 5px;">
+                Photo by <a href="https://www.pexels.com/photo/sport-muscles-climbing-climber-9606/" target="_blank" style="color: #555; text-decoration: none;">Skitterphoto</a>:  https://www.pexels.com/photo/sport-muscles-climbing-climber-9606/</p>
+         </div>
+     </div>
+
+     <div class="content-container">
+        <div class="box">
+           <h5>Bowls</h5>
+           <p>Done in groups, usually at clubs</p>
+           <p>Good for getting outdoors and making friends</p>
+           <img src="static/photos/bowls.jpg" alt="Bowls">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/a-man-and-a-woman-playing-balls-on-sand-10071077/" target="_blank" style="color: #555; text-decoration: none;">cottonbro studio</a>:  https://www.pexels.com/photo/a-man-and-a-woman-playing-balls-on-sand-10071077/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Boxing</h5>
+           <p>Combat sport</p>
+           <p>High intensity</p>
+           <p>Good for fitness</p>
+           <img src="static/photos/boxing.jpg" alt="Boxing">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/man-doing-boxing-163403/" target="_blank" style="color: #555; text-decoration: none;">Pixabay</a>:  https://www.pexels.com/photo/man-doing-boxing-163403/</p>
+        </div>
+    </div>
+
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Climbing</h5>
+           <p>Good for strength</p>
+           <p>Can be done in groups or individually</p>
+           <img src="static/photos/climbing.jpg" alt="Climbing">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/man-in-white-tank-top-rock-climbing-12807408/" target="_blank" style="color: #555; text-decoration: none;">César Guillotel</a>:  https://www.pexels.com/photo/man-in-white-tank-top-rock-climbing-12807408/</p>
+        </div>
+    </div>
+    
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Exercise classes</h5>
+           <p>Range of different benefits</p>
+           <p>Lots to choose from</p>
+           <p>Group exercise</p>
+           <img src="static/photos/classes.jpg" alt="Classes">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/women-doing-a-yoga-on-yoga-mat-3775587/" target="_blank" style="color: #555; text-decoration: none;">Andrea Piacquadio</a>:  https://www.pexels.com/photo/women-doing-a-yoga-on-yoga-mat-3775587/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Football</h5>
+           <p>Team sport</p>
+           <p>Good for fitness</p>
+           <p>High intensity</p>
+           <img src="static/photos/football.jpg" alt="Football">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/soccer-ball-on-grass-field-during-daytime-46798/" target="_blank" style="color: #555; text-decoration: none;">Pixabay</a>:  https://www.pexels.com/photo/soccer-ball-on-grass-field-during-daytime-46798/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Functional fitness</h5>
+           <p>Improving strength for everyday activities</p>
+           <p>Can be done one to one or in groups</p>
+           <img src="static/photos/functionalfitness.jpg" alt="Functional fitness">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/a-woman-exercising-with-battle-ropes-in-gym-6551174/" target="_blank" style="color: #555; text-decoration: none;">Andres Ayrton</a>:  https://www.pexels.com/photo/a-woman-exercising-with-battle-ropes-in-gym-6551174/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Gym</h5>
+           <p>Can be used to improve:</p>
+           <p>Cardiovascular health</p>
+           <p>Muscle hypertrophy</p>
+           <p>Muscular endurance</p>
+           <img src="static/photos/gym.jpg" alt="Gym">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/black-dumbbell-lot-260352/" target="_blank" style="color: #555; text-decoration: none;">Pixabay</a>:  https://www.pexels.com/photo/black-dumbbell-lot-260352/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Hockey</h5>
+           <p>Played in teams</p>
+           <p>Good for fitness</p>
+           <p>Good for making friends</p>
+           <img src="static/photos/hockey.jpg" alt="Hockey">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/two-woman-competing-for-a-goal-3698146/" target="_blank" style="color: #555; text-decoration: none;">Patrick Case</a>:  https://www.pexels.com/photo/two-woman-competing-for-a-goal-3698146/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Netball</h5>
+           <p>Played in teams</p>
+           <p>Good for fitness</p>
+           <p>Good for making friends</p>
+           <!-- <img src="static/photos.jpg" alt="Netball"> -->
+           <!-- <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/two-woman-competing-for-a-goal-3698146/" target="_blank" style="color: #555; text-decoration: none;">Patrick Case</a>:  https://www.pexels.com/photo/two-woman-competing-for-a-goal-3698146/</p> -->
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Personal training</h5>
+           <p>One to one sessions</p>
+           <p>Tailored to your own goals</p>
+           <img src="static/photos/personaltraining.jpg" alt="Personal training">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/woman-lying-on-bench-press-and-holding-barbell-416754/" target="_blank" style="color: #555; text-decoration: none;">Pixabay</a>:  https://www.pexels.com/photo/woman-lying-on-bench-press-and-holding-barbell-416754/</p>
+        </div>
+    </div>
+
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Rowing</h5>
+           <p>Done alone or as a group</p>
+           <p>High intensity</p>
+           <p>Good for strength and fitness</p>
+           <img src="static/photos/rowing.jpg" alt="Rowing">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/woman-riding-kayak-on-river-3693080/" target="_blank" style="color: #555; text-decoration: none;">Patrick Case</a>:  https://www.pexels.com/photo/woman-riding-kayak-on-river-3693080/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Rugby</h5>
+           <p>Team contact sport</p>
+           <p>High intensity</p>
+           <img src="static/photos/rugby.jpg" alt="Rugby">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/group-of-people-doing-a-group-hug-1627960/" target="_blank" style="color: #555; text-decoration: none;">Julius Holstein</a>:  https://www.pexels.com/photo/group-of-people-doing-a-group-hug-1627960/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Running</h5>
+           <p>Can be done alone or as part of a club/group</p>
+           <p>Parkruns are free</p>
+           <p>Can be high intensity</p>
+           <img src="static/photos/running.jpg" alt="Running">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/female-and-male-runners-on-a-marathon-2402777/" target="_blank" style="color: #555; text-decoration: none;">RUN 4 FFWPU</a>:  https://www.pexels.com/photo/female-and-male-runners-on-a-marathon-2402777/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Sailing</h5>
+           <p>Can be done alone or as part of a club/group</p>
+           <p>Water sport</p>
+           <img src="static/photos/sailing.jpg" alt="Sailing">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/person-in-blue-and-white-sailboat-on-body-of-water-during-daytime-76978/" target="_blank" style="color: #555; text-decoration: none;">Peter Simmons</a>:  https://www.pexels.com/photo/person-in-blue-and-white-sailboat-on-body-of-water-during-daytime-76978/</p>
+        </div>
+    </div>
+    
+    <div class="content-container">
+        <div class="box">
+           <h5>Snooker</h5>
+           <p>Good social activity</p>
+           <img src="static/photos/snooker.jpg" alt="Snooker">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/focused-woman-aiming-a-cue-ball-10634429/" target="_blank" style="color: #555; text-decoration: none;">MART PRODUCTION</a>:  https://www.pexels.com/photo/focused-woman-aiming-a-cue-ball-10634429/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Squash</h5>
+           <p>Can be played with others</p>
+           <p>High intensity</p>
+           <img src="static/photos/squash.jpg" alt="Squash">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/squash-players-standing-beside-their-rackets-7648097/" target="_blank" style="color: #555; text-decoration: none;">Artem Podrez</a>:  https://www.pexels.com/photo/squash-players-standing-beside-their-rackets-7648097/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Swimming</h5>
+           <p>Great for:</p>
+           <p>Cardiovascular health</p>
+           <p>Low impact exercise</p>
+           <p>Muscular endurance</p>
+           <img src="static/photos/swimpic.jpg" alt="Swimming">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/close-up-photo-of-swimming-rope-261185/" target="_blank" style="color: #555; text-decoration: none;">Pixabay</a>:  https://www.pexels.com/photo/close-up-photo-of-swimming-rope-261185/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Table tennis</h5>
+           <p>Played with others</p>
+           <p>Good for reaction times</p>
+           <p>Can be high intensity</p>
+           <img src="static/photos/tabletennis.jpg" alt="Table tennis">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/white-pingpong-ball-beneath-red-table-tennis-paddle-187329/" target="_blank" style="color: #555; text-decoration: none;">Sascha Düser</a>:  https://www.pexels.com/photo/white-pingpong-ball-beneath-red-table-tennis-paddle-187329/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Tennis</h5>
+           <p>Played with others</p>
+           <p>Group or individual lessons</p>
+           <p>Can be high intensity</p>
+           <img src="static/photos/tennis.jpg" alt="Tennis">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/a-man-holding-a-tennis-racket-sitting-by-a-brick-wall-5730299/" target="_blank" style="color: #555; text-decoration: none;">cottonbro studio</a>:  https://www.pexels.com/photo/a-man-holding-a-tennis-racket-sitting-by-a-brick-wall-5730299/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Triathlon</h5>
+           <p>Sessions are usually with others</p>
+           <p>Three different sports in one (swimming, cycling, running)</p>
+           <p>High intensity</p>
+           <img src="static/photos/triathlon.jpg" alt="Triathlon">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/powerful-athletes-competing-in-triathlon-race-5687496/" target="_blank" style="color: #555; text-decoration: none;">RUN 4 FFWPU</a>:  https://www.pexels.com/photo/powerful-athletes-competing-in-triathlon-race-5687496/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Walking</h5>
+           <p>Lower intensity</p>
+           <p>Can be done as part of a club/group</p>
+           <p>Parkruns are free for both walkers and runners</p>
+           <img src="static/photos/walking.jpg" alt="Walking">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/faceless-person-jogging-in-empty-park-4429104/" target="_blank" style="color: #555; text-decoration: none;">Ketut Subiyanto</a>:  https://www.pexels.com/photo/faceless-person-jogging-in-empty-park-4429104/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Weightlifting</h5>
+           <p>Possible to compete</p>
+           <p>High intensity</p>
+           <p>Great for strength</p>
+           <img src="static/photos/weightlifting.jpg" alt="Weightlifting">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/woman-lifting-barbell-1552249/" target="_blank" style="color: #555; text-decoration: none;">Leon Ardho</a>:  https://www.pexels.com/photo/woman-lifting-barbell-1552249/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Windsurfing</h5>
+           <p>Watersport</p>
+           <p>High intensity</p>
+           <p>Sessions can be done in groups</p>
+           <img src="static/photos/windsurfing.jpg" alt="Windsurfing">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/windsurfing-2534824/" target="_blank" style="color: #555; text-decoration: none;">Costas Antwnakakis</a>:  https://www.pexels.com/photo/windsurfing-2534824/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Wrestling</h5>
+           <p>Combat sport</p>
+           <p>High intensity</p>
+           <p>Good for fitness</p>
+           <img src="static/photos/wrestling.jpg" alt="Wrestling">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/men-having-sparing-fight-6295759/" target="_blank" style="color: #555; text-decoration: none;">Pavel Danilyuk</a>:  https://www.pexels.com/photo/men-having-sparing-fight-6295759/</p>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="box">
+           <h5>Yoga</h5>
+           <p>Usually as part of a group</p>
+           <p>Calming</p>
+           <p>High intensity</p>
+           <p>Good for strength and mobility</p>
+           <img src="static/photos/yoga.jpg" alt="Yoga">
+           <p style="font-size: 12px; color: #555; margin-top: 5px;">
+               Photo by<a href="https://www.pexels.com/photo/women-performing-yoga-on-green-grass-near-trees-1472887/" target="_blank" style="color: #555; text-decoration: none;">Rui Dias</a>:  https://www.pexels.com/photo/women-performing-yoga-on-green-grass-near-trees-1472887/</p>
+        </div>
+    </div>
+
+ 
+     <script>
+         document.getElementById('quizForm').addEventListener('submit', function(event) {
+             event.preventDefault();
+ 
+             const answers = {
+                 environment: document.querySelector('input[name="q1"]:checked').value,
+                 price: document.querySelector('input[name="q2"]:checked').value,
+                 group: document.querySelector('input[name="q3"]:checked').value
+             };
+ 
+             let activities = [];
+ 
+             if (answers.price === 'cheaper') {
+                 if (answers.group === 'group') {
+                     activities = ['Running', 'Walking', 'Football', 'Netball', 'Hockey'];
+                 } else {
+                     activities = ['Swimming', 'Rowing', 'Yoga', 'Badminton', 'Tennis', 'Climbing', 'Bouldering', 'Snooker', 'Table Tennis'];
+                 }
+             } else {
+                 if (answers.group === 'group') {
+                     activities = ['Rugby', 'Sailing', 'Windsurfing', 'Powerboating', 'Combat Sports', 'Fitness Classes'];
+                 } else {
+                     activities = ['Gym', 'Personal Training', 'Weightlifting', 'Functional Fitness', 'Wrestling', 'Boxing', 'Triathlon', 'Bowls'];
+                 }
+             }
+ 
+             if (answers.environment === 'water') {
+                 activities = activities.filter(activity => ['Swimming', 'Rowing', 'Sailing', 'Powerboating', 'Windsurfing'].includes(activity));
+             } else if (answers.environment === 'indoors') {
+                 activities = activities.filter(activity => ['Gym', 'Yoga', 'Badminton', 'Tennis', 'Snooker', 'Table Tennis', 'Fitness Classes', 'Wrestling', 'Boxing', 'Weightlifting', 'Functional Fitness', 'Climbing', 'Bouldering'].includes(activity));
+             } else if (answers.environment === 'outdoors') {
+                 activities = activities.filter(activity => ['Running', 'Walking', 'Football', 'Netball', 'Hockey', 'Rugby', 'Tennis', 'Climbing', 'Bouldering', 'Bowls', 'Triathlon', 'Rowing'].includes(activity));
+             }
+ 
+             let activityRecommendation = activities.length > 0 ? activities.join(', ') : 'No activities match your preferences.';
+ 
+             document.getElementById('activity').textContent = activityRecommendation;
+             document.getElementById('result').classList.remove('hidden');
+         });
+     </script>
+ </body>
+ </html>
+ 

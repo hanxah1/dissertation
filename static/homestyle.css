@@ -1,91 +1,96 @@
-body{
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(255, 255, 255);
-}
 
-/* .headerborder{
-    background-color: black;
-    margin-top: 1%;
-} */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-.header{
-    background-color: f1f1f1;
-    padding: 10px;
-    text-align: center;
-    font-size: 35px;
-    color: rgb(0, 0, 0);
-    word-spacing: 1px;
-}
-
-.row {
+.background-top {
+  background-image: url('photos/fitnessgeneral.jpg'); 
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  width: 100%;
+  background-repeat: no-repeat;
   display: flex;
-  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  color: white; 
+  position: relative;
+  z-index: 1; 
 }
 
-.column {
-  padding: 10px;
-  /* height: 300px; Should be removed. Only for demonstration */
+.text-overlay {
+  position: absolute;
+  top: 50%; 
+  transform: translateY(-50%); 
+  text-align: center; 
 }
 
-.column.side {
-  flex: 0.5;
-  /* -ms-flex: 1; */
-  flex: 0.5;
+.content-container {
+  position: relative;
+  margin-top: -10px; 
+  height: 300px;
+  z-index: 2; 
 }
 
-.column.middle {
-  flex: 2;
-  /* -ms-flex: 2; */
-  flex: 2;
+.left-box {
+  position: absolute;
+  top: 0;
+  left: 15%; 
+  width: 32%;
+  padding: 50px;
+  background-color: lightblue;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  z-index: 2;
 }
 
-.footer {
-  background-color: #f1f1f1;
-  padding: 10px;
+.right-box {
+  position: absolute;
+  top: 100px;
+  left: 52.5%; 
+  width: 32%;
+  padding: 50px;
+  background-color: rgb(65, 65, 255);
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  z-index: 1; 
   text-align: center;
 }
 
-@media (max-width: 600px) {
-  .row {
-    flex-direction: column;
-    flex-direction: column;
+.content-container + .content-container {
+  margin-top: 150px; 
+}
+
+.right-box + .left-box {
+  top: 300px;
+  left: 10%;
+}
+
+@media (max-width: 768px) {
+  .left-box, .right-box {
+      width: 90%; 
+      position: relative; 
+      top: 0; 
+      left: 0; 
+      transform: none; 
+      margin: 10px auto; 
+  }
+
+  .content-container {
+      margin-top: 20px; 
+  }
+  
+  .background-top {
+      height: 300px; 
+  }
+
+  .text-overlay {
+      font-size: 14px;
   }
 }
 
-.filter {
-    display: inline-block;
-    margin: 20px;
-    align-content: center;
-}
-
-select {
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-select:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
 
 .button {
   display: inline-block;
-  border-radius: 4px;
-  background-color:#000000;
+  background-color:#ccc;
   border: none;
-  color: #f1f1f1;
+  color: black;
   text-align: center;
   font-size: 28px;
   padding: 20px;

@@ -13,7 +13,6 @@ def get_db():
         db = g._database = sqlite3.connect(DATABASE)
         return db
 
-# newwww
 def get_db_connection():
     conn = sqlite3.connect('locations.db')
     conn.row_factory = sqlite3.Row
@@ -38,20 +37,20 @@ def get_locations():
             'email': row[1],
             'postcode': row[0],
             'times': row[3],
-            'classes': row[9],
+            'classes': row[10],
+            'prices': row[9],
             'website': row[6],
             'keywords':row[5]
         })
 
     return render_template('tool.html', results=jsonify(locations))
-# new done
     
 
 @app.route('/markers')
 def get_markers():
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM locations')  # Adjust the table name and columns as per your database
+    cursor.execute('SELECT * FROM locations')  
     rows = cursor.fetchall()
     conn.close()
 
@@ -66,7 +65,8 @@ def get_markers():
             'email': row[1],
             'postcode': row[0],
             'times': row[3],
-            'classes': row[9],
+            'classes': row[10],
+            'prices': row[9],
             'website': row[6],
             'keywords':row[5]
         })
@@ -83,7 +83,9 @@ def close_connection(exception):
 def index():
     return render_template('home.html')
 
-
+@app.route("/quiz")
+def quiz():
+    return render_template('quiz.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
